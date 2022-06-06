@@ -1,0 +1,72 @@
+（#txt文件有read.table函数读入）
+> getwd()
+[1] "C:/Users/zhangxiaodong/Documents"
+> setwd("D:/Linux常用命令/R语言命令/R-study/12-R语言绘图配套资料/R语言绘图配套资料")
+> getwd()
+[1] "D:/Linux常用命令/R语言命令/R-study/12-R语言绘图配套资料/R语言绘图配套资料"
+> m <- read.table("Rdata/prok_representative.txt",sep = "\t")（#读入txt文件）
+> class(m)
+[1] "data.frame"
+> View(m)（#查看txt文件）
+> genome_size <- m[,2]（#选取第2列定义基因大小变量）
+> genome_size
+> gene_size <- m[,4]（#选取第4列定义基因大小变量）
+> gene_size
+（#plot函数用于绘制散点图）
+> plot(genome_size,gene_size)
+> plot(genome_size,gene_size,pch=16)（#设置点的形状，一共26种）
+> plot(genome_size,gene_size,pch=16,cex=0.8)（#cex设置点的大小）
+（#添加回归曲线）
+> ?lm（#线性回归帮助文档）
+> fit <- lm(gene_size ~ genome_size)
+> fit
+
+Call:
+lm(formula = gene_size ~ genome_size)
+
+Coefficients:
+(Intercept)  genome_size  
+      286.6        843.7  
+> abline(fit,col="blue",lwd=1.8)（#画线并添加颜色，lwd代表线的粗细）
+> summary(fit)（#summary函数用来查看fit值）
+Call:
+lm(formula = gene_size ~ genome_size)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10606.7   -102.1     18.0    116.8   2551.7 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  286.598     11.211   25.57   <2e-16 ***
+genome_size  843.691      2.608  323.55   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 294.4 on 3502 degrees of freedom
+Multiple R-squared:  0.9676,	Adjusted R-squared:  0.9676 
+F-statistic: 1.047e+05 on 1 and 3502 DF,  p-value: < 2.2e-16
+> text(12,10000,labels="y=843.691x+286.598\nR2=0.97")（#添加回归曲线的坐标及公式）
+（#从fit代码找公式）
+> summary(fit)$adj.r.squared（#从fit中寻找R2）
+[1] 0.9676204
+> round(summary(fit)$adj.r.squared,2)（#保留两位有效数字）
+[1] 0.97
+> summary((fit)$coefficients[1])
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  286.6   286.6   286.6   286.6   286.6   286.6 
+  intercept <- round(summary((fit)$coefficients[1],2))
+> intercept
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    287     287     287     287     287     287 
+> slope <- round(summary((fit)$coefficients[2],2))
+> slope
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    844     844     844     844     844     844 
+> eq <- bquote(atop("y="*.(slope)*"x+"*.(intercept),R^2==.(rr)))
+> eq
+atop("y=" * c(Min. = 844, `1st Qu.` = 844, Median = 844, 
+Mean = 844, `3rd Qu.` = 844, Max. = 844) * "x+" * c(Min. = 287, 
+`1st Qu.` = 287, Median = 287, Mean = 287, `3rd Qu.` = 287, Max. = 287
+), R^2 == 0.97)
+> text(12,6e3,eq)
