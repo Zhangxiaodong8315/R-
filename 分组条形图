@@ -1,0 +1,131 @@
+> getwd()
+[1] "C:/Users/zhangxiaodong/Documents"
+> setwd("D:/Linux常用命令/R语言命令/R-study/12-R语言绘图配套资料/R语言绘图配套资料")
+> read.csv("Rdata/sv_distrubution.csv")
+    X Contraction Deletion Expansion Insertion
+1   1          97      183       234       265
+2   2         134      193       135       240
+3   3         113      134       122       196
+4   4         116      159       111       144
+5   5          99      138       114       156
+6   6         100      126       156       186
+7   7         108      157       166       165
+8   8          94      120       116       158
+9   9          46       90        97       138
+10 10          90      103       120       168
+11 11          78      100       148       174
+12 12          63      107       116       149
+13 13          54       88       103       116
+14 14          37       69        59       112
+15 15          33       66        43        96
+16 16          64       41        67        76
+17 17          67       54        78        95
+18 18          54       78        58        84
+19 19          50       56        70        99
+20 20          53       47       129        82
+21 21          23       41        63        63
+22 22          25       30        69        65
+23  X          76       76       102       115
+> read.csv("Rdata/sv_distrubution.csv",header = T)
+    X Contraction Deletion Expansion Insertion
+1   1          97      183       234       265
+2   2         134      193       135       240
+3   3         113      134       122       196
+4   4         116      159       111       144
+5   5          99      138       114       156
+6   6         100      126       156       186
+7   7         108      157       166       165
+8   8          94      120       116       158
+9   9          46       90        97       138
+10 10          90      103       120       168
+11 11          78      100       148       174
+12 12          63      107       116       149
+13 13          54       88       103       116
+14 14          37       69        59       112
+15 15          33       66        43        96
+16 16          64       41        67        76
+17 17          67       54        78        95
+18 18          54       78        58        84
+19 19          50       56        70        99
+20 20          53       47       129        82
+21 21          23       41        63        63
+22 22          25       30        69        65
+23  X          76       76       102       115
+> read.csv("Rdata/sv_distrubution.csv",header = T,row.names = 1)（#设置第一行为行标题）
+   Contraction Deletion Expansion Insertion
+1           97      183       234       265
+2          134      193       135       240
+3          113      134       122       196
+4          116      159       111       144
+5           99      138       114       156
+6          100      126       156       186
+7          108      157       166       165
+8           94      120       116       158
+9           46       90        97       138
+10          90      103       120       168
+11          78      100       148       174
+12          63      107       116       149
+13          54       88       103       116
+14          37       69        59       112
+15          33       66        43        96
+16          64       41        67        76
+17          67       54        78        95
+18          54       78        58        84
+19          50       56        70        99
+20          53       47       129        82
+21          23       41        63        63
+22          25       30        69        65
+X           76       76       102       115
+> x <- read.csv("Rdata/sv_distrubution.csv",header = T,row.names = 1)
+> x
+   Contraction Deletion Expansion Insertion
+1           97      183       234       265
+2          134      193       135       240
+3          113      134       122       196
+4          116      159       111       144
+5           99      138       114       156
+6          100      126       156       186
+7          108      157       166       165
+8           94      120       116       158
+9           46       90        97       138
+10          90      103       120       168
+11          78      100       148       174
+12          63      107       116       149
+13          54       88       103       116
+14          37       69        59       112
+15          33       66        43        96
+16          64       41        67        76
+17          67       54        78        95
+18          54       78        58        84
+19          50       56        70        99
+20          53       47       129        82
+21          23       41        63        63
+22          25       30        69        65
+X           76       76       102       115
+> head(x)（#显示x的前几行，默认6行）
+  Contraction Deletion Expansion Insertion
+1          97      183       234       265
+2         134      193       135       240
+3         113      134       122       196
+4         116      159       111       144
+5          99      138       114       156
+6         100      126       156       186
+> head(x,3)（#显示x的前3行）
+  Contraction Deletion Expansion Insertion
+1          97      183       234       265
+2         134      193       135       240
+3         113      134       122       196
+> class(x)（#x的数据类型）
+[1] "data.frame"
+> barplot(x)
+Error in barplot.default(x) : 'height' must be a vector or a matrix
+> x <- as.matrix(x)（#将x转换为矩阵）
+> class(x)
+[1] "matrix" "array" 
+> barplot(t(x))（#t函数用于转置横纵坐标）
+> barplot(t(x),col = rainbow(4))（#设置4个彩虹色）
+> barplot(t(x),col = rainbow(4),beside = T)（#转换为分组条形图，默认是堆砌图）
+> barplot(t(x),col = rainbow(4),beside = F)（#改为堆砌条形图）
+> barplot(t(x),col = rainbow(4),beside = F,legend.text = colnames(x))（#barplot函数用legend.text函数添加图例）
+> barplot(t(x),col = rainbow(4),beside = F,legend.text = colnames(x),ylim = c(0,800))（#ylim设置纵坐标的范围）
+> barplot(t(x),col = rainbow(4),beside = F,legend.text = colnames(x),ylim = c(0,800),main = "SV Distribution",xlab = "Chromosome Numbers",ylab = "SV Numbers")（#添加主标题，横纵坐标标签）
