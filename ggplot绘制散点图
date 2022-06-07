@@ -22,4 +22,4 @@
 > ggplot(mpg,aes(displ,hwy))（#添加XY轴）
 > ?geom_point
 > ggplot(mpg,aes(displ,hwy)) + geom_point()（#加散点）
-> ggplot(mpg,aes(displ,hwy,colour = class)) + geom_point()（给点加颜色）
+> ggplot(mpg,aes(displ,hwy,colour = class)) + geom_point()（#给点加颜色，class指其中一个变量）
